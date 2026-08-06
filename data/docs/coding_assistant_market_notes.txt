@@ -1,0 +1,7 @@
+AI coding assistants are becoming a major part of software delivery.
+
+Common capabilities include code completion, code generation, test generation, debugging assistance, documentation support, and code explanation.
+
+Enterprise buyers care about governance, security, intellectual property protection, integration with IDEs, support for legacy systems, and audit controls.
+
+Different tools may be better suited for different needs, such as individual productivity, enterprise governance, modernization, or agentic development workflows.

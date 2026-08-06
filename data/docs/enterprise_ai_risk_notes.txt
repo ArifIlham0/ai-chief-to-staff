@@ -1,0 +1,5 @@
+Risks in enterprise AI adoption include hallucinated outputs, insecure code suggestions, over-reliance on automation, data leakage, unclear accountability, and lack of evaluation.
+
+Recommended controls include human approval, secure prompts, audit logging, access control, evaluation workflows, monitoring, and clear escalation paths.
+
+AI systems should be introduced with training, governance policies, and measurable success criteria.
