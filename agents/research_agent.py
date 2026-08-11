@@ -18,3 +18,5 @@ def research_agent(state):
             "Which tool is strongest for enterprise use?",
         ]
     }
+
+    return state

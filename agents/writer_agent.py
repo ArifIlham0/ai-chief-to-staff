@@ -1,4 +1,4 @@
-def write_agent(state):
+def writer_agent(state):
     objective = state["objective"]
     analysis = state["analysis"]
     rag = state["rag_findings"]

@@ -14,13 +14,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.get("/")
+@app.get("/")
 def home():
     return {
         "message": "AI Chief of Staff is running"
     }
 
-app.post("/run")
+@app.post("/run")
 def run_task(request: TaskRequest):
     result = run_chief_of_staff(request.objective)
 
