@@ -7,6 +7,12 @@ from agents.analyst_agent import analyst_agent
 from agents.browser_agent import browser_agent
 from agents.chief_agent import chief_planner
 from agents.writer_agent import writer_agent
+from agents.writer import writer_agent as research_writer_agent
+from memory.memory_store import init_memory
+from agents.planner import planner_agent
+from agents.executor import executor_agent
+from agents.reflector import reflector_agent
+from reports.report_writer import save_final_report
 
 class ChiefState(TypedDict):
     objective: str
@@ -65,3 +71,50 @@ def run_chief_of_staff(objective: str):
         "review_notes": result["review_notes"],
         "final_report": result["final_report"]
     }
+
+class ResearchState(TypedDict):
+    topic: str
+    memory: List[Dict]
+    plan: List[str]
+    findings: List[Dict]
+    draft_report: str
+    reflection_notes: str
+    final_report: str
+    output_path: str
+
+def build_research_graph():
+    graph = StateGraph(ResearchState)
+
+    graph.add_node("planner", planner_agent)
+    graph.add_node("executor", executor_agent)
+    graph.add_node("writer", research_writer_agent)
+    graph.add_node("reflector", reflector_agent)
+    graph.add_node("save_report", save_final_report)
+
+    graph.set_entry_point("planner")
+
+    graph.add_edge("planner", "executor")
+    graph.add_edge("executor", "writer")
+    graph.add_edge("writer", "reflector")
+    graph.add_edge("reflector", "save_report")
+    graph.add_edge("save_report", END)
+
+    return graph.compile()
+
+def run_research_agent(topic: str):
+    init_memory()
+
+    app = build_research_graph()
+
+    initial_state = {
+        "topic": topic,
+        "memory": [],
+        "plan": [],
+        "findings": [],
+        "draft_report": "",
+        "reflection_notes": "",
+        "final_report": "",
+        "output_path": ""
+    }
+
+    return app.invoke(initial_state)
